@@ -1,0 +1,30 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Виртуальное окружение
+venv/
+env/
+
+#VS Code settings
+.vscode/
+.idea/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.py.class
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# SQLite database 
+*.db
+
+# Logs  
+*.log
+*.sqlite3-journal
