@@ -68,7 +68,7 @@ def list_habits_cmd():
     i = 0
     for habist in habist:
         i += 1
-        print(f"{i}. {habist[1].capitalize()} (ID: {habist[0]})")
+        print(f"{i}. {habist[1]} (ID: {habist[0]})")
     
 def records_cmd():
     """List all records."""
@@ -82,7 +82,7 @@ def records_cmd():
     i = 0
     for record in records:
         i += 1
-        print(f"{i}. {record[1].capitalize()} выполнена {record[2]} (ID записи: {record[0]})")
+        print(f"{i}. {record[1]} выполнена {record[2]} (ID записи: {record[0]})")
 
 def stats_cmd():
     stats = get_records()
@@ -100,5 +100,5 @@ def stats_cmd():
     
     print("Статистика по выполненным привычкам:\n")
     for habit, count in habit_count.items():
-        print(f"Привычка '{habit.capitalize()}' выполнена {count} раз(а).")
+        print(f"Привычка '{habit}' выполнена {count} раз(а).")
 
