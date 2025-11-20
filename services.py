@@ -102,3 +102,33 @@ def stats_cmd():
     for habit, count in habit_count.items():
         print(f"Привычка '{habit}' выполнена {count} раз(а).")
 
+#delete habit
+def delete_habit_name(habit_name: str):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Find the habit by name
+    cursor.execute("SELECT id FROM habits WHERE name = ?", (habit_name,))
+    ids = [r[0] for r in cursor.fetchall()]
+    if not ids:
+        print(f"❌ Привычка с именем '{habit_name}' не найдена.")
+        conn.close()
+        return
+    
+    print(f"❌ Привычка с id {ids} удалена.")
+    try:
+        conn.execute("BEGIN")
+        # If have cascade delete, this is not necessary
+        # cursor.execute("DELETE FROM habits WHERE name = ?", (habit_name,))
+        
+        # IF have't cascade delete, this is not necessary
+        cursor.execute("DELETE FROM records WHERE habit_id IN (SELECT id FROM habits WHERE name = ?)", (habit_name,))
+        cursor.execute("DELETE FROM habits WHERE name = ?", (habit_name,))
+        conn.commit()
+        print(f"✅ Записи о привычке '{habit_name}' удалены.")
+    except Exception as e:
+        conn.rollback()
+        print(f"❌ Ошибка при удалении привычки '{habit_name}': {e}")
+    finally:
+        conn.close()
+
